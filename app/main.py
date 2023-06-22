@@ -28,7 +28,7 @@ def home():
 def data():
     if SPRINT < 1:
         return render_template("data.html")
-    db = Database()
+    db = Database("bandersnatch")
     return render_template(
         "data.html",
         count=db.count(),
