@@ -6,11 +6,11 @@ from MonsterLab import Monster
 from flask import Flask, render_template, request
 from pandas import DataFrame
 
-from app.data import Database
-from app.graph import chart
-from app.machine import Machine
+from .data import Database
+from .graph import chart
+from .machine import Machine
 
-SPRINT = 0
+SPRINT = 1
 APP = Flask(__name__)
 
 
