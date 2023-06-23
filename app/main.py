@@ -6,9 +6,9 @@ from MonsterLab import Monster
 from flask import Flask, render_template, request
 from pandas import DataFrame
 
-from .data import Database
-from .graph import chart
-from .machine import Machine
+from app.data import Database
+from app.graph import chart
+from app.machine import Machine
 
 SPRINT = 1
 APP = Flask(__name__)
@@ -28,7 +28,7 @@ def home():
 def data():
     if SPRINT < 1:
         return render_template("data.html")
-    db = Database("bandersnatch")
+    db = Database("Database")
     return render_template(
         "data.html",
         count=db.count(),

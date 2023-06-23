@@ -1,5 +1,4 @@
 from os import getenv
-
 from certifi import where
 from dotenv import load_dotenv
 from MonsterLab import Monster
@@ -9,37 +8,36 @@ from pymongo import MongoClient
 
 class Database:
     load_dotenv()
-    client = MongoClient(getenv('MONGO_DB'), tlsCAFile=where())
-    database = client['bandersnatch']
+    database = MongoClient(getenv("MONGO_DB"), tlsCAFile=where())["Database"]
 
     def __init__(self, collection):
-        self.collection = self.database["bandersnatch"]
+        # Creates the collection in database
+        self.collection = self.database[collection]
 
-    def seed(self, amount=1000):
-        docs = [Monster().to_dict() for _ in range(amount)]
-        self.collection.insert_many(docs)
+    def seed(self, amount: int):
+        # Seeds the database with monsters
+        self.collection.insert_many([Monster().to_dict() for _ in range(amount)])
 
     def reset(self):
         # Drop the database tables
         self.collection.delete_many({})
 
     def count(self) -> int:
-        doc_count = self.collection.count_documents({})
-        return doc_count
+        # Return a count of how many monsters are in the database
+        return self.collection.count_documents({})
 
     def dataframe(self) -> DataFrame:
-        documents = list(self.collection.find())
-        df = DataFrame(documents)
-        return df
+        # Return a Dataframe of all monsters in this collection
+        return DataFrame(self.collection.find({}, {"_id": 0}))
 
     def html_table(self) -> str:
-        df = self.dataframe()
-        table = df.to_html(index=True)
-        return table
+        # returns a HTML table version of the Dataframe,
+        # or None if collection is empty
+        return self.dataframe().to_html() if self.count() else None
 
 
 if __name__ == '__main__':
-    db = Database()
-    db.seed(1000)
+    db = Database("Database")
+    db.reset()
+    db.seed(2048)
     print(db.count())
-    print(list(db.collection.find({}, {"_id": 0})))
