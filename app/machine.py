@@ -86,7 +86,7 @@ class Machine:
         - machine (Machine): The loaded Machine object.
 
         """
-        joblib.load(filepath)
+        return joblib.load(filepath)
 
     def info(self):
         """

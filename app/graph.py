@@ -28,7 +28,7 @@ def chart(df: DataFrame, x: str, y: str, target: str) -> Chart:
     ).properties(
         width=600,
         height=500,
-        #background="white",
+        # background="white",
         padding=20
     ).configure(
         axis={
