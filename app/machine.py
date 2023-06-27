@@ -37,7 +37,13 @@ class Machine:
         self.name = "Random Forest Classifier"
         target = df["Rarity"]
         features = df.drop(columns=["Rarity"])
-        self.model = RandomForestClassifier()
+        self.model = RandomForestClassifier(
+            n_estimators=300,
+            max_depth=10,
+            min_samples_leaf=1,
+            min_samples_split=2,
+            random_state=42
+        )
         self.model.fit(features, target)
         self.timestamp = '%s' % datetime.datetime.now()
 

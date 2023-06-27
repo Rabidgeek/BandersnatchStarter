@@ -20,7 +20,7 @@ def chart(df: DataFrame, x: str, y: str, target: str) -> Chart:
     graph = Chart(
         df,
         title=f"{y} by {x} for {target}",
-    ).mark_circle(size=100).encode(
+    ).mark_square(size=100).encode(
         x=x,
         y=y,
         color=target,
@@ -28,7 +28,7 @@ def chart(df: DataFrame, x: str, y: str, target: str) -> Chart:
     ).properties(
         width=600,
         height=500,
-        background="white",
+        #background="white",
         padding=20
     ).configure(
         axis={
@@ -38,5 +38,5 @@ def chart(df: DataFrame, x: str, y: str, target: str) -> Chart:
         title={
             "fontSize": 24
         }
-    )
+    ).interactive()
     return graph
